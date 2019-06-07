@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ua.i0xhex.fixtools.config.yaml.snakeyaml.emitter;
+package ua.i0xhex.fixpack.config.yaml.snakeyaml.emitter;
 
 import java.io.IOException;
 

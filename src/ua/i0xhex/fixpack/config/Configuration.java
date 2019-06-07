@@ -1,4 +1,4 @@
-package ua.i0xhex.fixtools.config;
+package ua.i0xhex.fixpack.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.nio.file.Files;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ua.i0xhex.fixtools.config.yaml.bukkit.YamlConfiguration;
+import ua.i0xhex.fixpack.config.yaml.bukkit.YamlConfiguration;
 
 public abstract class Configuration {
     

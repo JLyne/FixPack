@@ -1,4 +1,4 @@
-package ua.i0xhex.fixtools;
+package ua.i0xhex.fixpack;
 
 public interface Manager {
     void onEnable();

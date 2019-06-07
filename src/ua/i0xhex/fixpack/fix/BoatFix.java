@@ -1,4 +1,4 @@
-package ua.i0xhex.fixtools.fix;
+package ua.i0xhex.fixpack.fix;
 
 import java.time.Duration;
 import java.util.HashSet;
@@ -22,12 +22,12 @@ import org.bukkit.event.vehicle.VehicleExitEvent;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import ua.i0xhex.fixtools.FixTools;
-import ua.i0xhex.fixtools.config.Config;
+import ua.i0xhex.fixpack.FixPack;
+import ua.i0xhex.fixpack.config.Config;
 
 public class BoatFix implements Listener {
     
-    private FixTools plugin;
+    private FixPack plugin;
     
     // config
     private boolean fixGhostBoat;
@@ -38,7 +38,7 @@ public class BoatFix implements Listener {
     private Set<UUID> passengersExitQuery = new HashSet<>();
     private Cache<UUID, Byte> suffocationImmuneEntities;
     
-    public BoatFix(FixTools plugin) {
+    public BoatFix(FixPack plugin) {
         this.plugin = plugin;
         
         Config config = plugin.config();

@@ -1,4 +1,4 @@
-package ua.i0xhex.fixtools.config.yaml.bukkit;
+package ua.i0xhex.fixpack.config.yaml.bukkit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
 
-import ua.i0xhex.fixtools.config.yaml.snakeyaml.Yaml;
+import ua.i0xhex.fixpack.config.yaml.snakeyaml.Yaml;
 
 /**
  * An implementation of {@link Configuration} which saves all files in Yaml.

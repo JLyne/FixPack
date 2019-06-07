@@ -1,4 +1,4 @@
-package ua.i0xhex.fixtools.config.yaml.bukkit;
+package ua.i0xhex.fixpack.config.yaml.bukkit;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

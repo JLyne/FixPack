@@ -1,10 +1,8 @@
-package ua.i0xhex.fixtools.config;
+package ua.i0xhex.fixpack.config;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-import ua.i0xhex.fixtools.FixTools;
-import ua.i0xhex.fixtools.config.yaml.bukkit.YamlConfiguration;
+import ua.i0xhex.fixpack.FixPack;
 
 public class Config extends Configuration {
     
@@ -13,7 +11,7 @@ public class Config extends Configuration {
     private boolean boatPreventSuffocationOnExit;
     private Duration boatSuffocationImmuneDuration;
     
-    public Config(FixTools plugin) {
+    public Config(FixPack plugin) {
         super(plugin, "config.yml", true);
         applyDefaults("config.yml");
         saveConfig();

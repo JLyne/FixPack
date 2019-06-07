@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ua.i0xhex.fixtools.config.yaml.snakeyaml;
+package ua.i0xhex.fixpack.config.yaml.snakeyaml;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +47,7 @@ import org.yaml.snakeyaml.representer.Representer;
 import org.yaml.snakeyaml.resolver.Resolver;
 import org.yaml.snakeyaml.serializer.Serializer;
 
-import ua.i0xhex.fixtools.config.yaml.snakeyaml.emitter.Emitter;
+import ua.i0xhex.fixpack.config.yaml.snakeyaml.emitter.Emitter;
 
 /**
  * Public YAML interface. Each Thread must have its own instance.

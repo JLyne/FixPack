@@ -1,11 +1,11 @@
-package ua.i0xhex.fixtools;
+package ua.i0xhex.fixpack;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ua.i0xhex.fixtools.config.Config;
-import ua.i0xhex.fixtools.fix.BoatFix;
+import ua.i0xhex.fixpack.config.Config;
+import ua.i0xhex.fixpack.fix.BoatFix;
 
-public class FixTools extends JavaPlugin implements Manager {
+public class FixPack extends JavaPlugin implements Manager {
     
     private Config config;
     

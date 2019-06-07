@@ -1,7 +1,7 @@
-name: FixTools
+name: FixPack
 version: 1.0.0
 author: i0xHeX
 description: Plugin that fixes different minecraft gameplay issues
 
-main: ua.i0xhex.fixtools.FixTools
+main: ua.i0xhex.fixpack.FixPack
 api-version: "1.14"
