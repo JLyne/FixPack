@@ -797,7 +797,7 @@ public final class Emitter implements Emitable {
         if (style == null) {
             style = chooseScalarStyle();
         }
-        if (!simpleKeyContext && !analysis.multiline && !isNumber(ev.getValue())) {
+        if (!simpleKeyContext && !analysis.multiline && !isPrimitive(ev.getValue())) {
             style = DumperOptions.ScalarStyle.DOUBLE_QUOTED;
         }
         boolean split = !simpleKeyContext && splitLines;
@@ -822,7 +822,8 @@ public final class Emitter implements Emitable {
         style = null;
     }
     
-    private boolean isNumber(String scalar) {
+    private boolean isPrimitive(String scalar) {
+        if (scalar.equals("true") || scalar.equals("false")) return true;
         try {
             Double.parseDouble(scalar);
             return true;
