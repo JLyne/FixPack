@@ -59,6 +59,8 @@ public class BoatFix implements Listener {
     
     @EventHandler
     public void onVehicleDismount(VehicleExitEvent e) {
+        if (!(e.getVehicle() instanceof Boat)) return;
+        
         LivingEntity exited = e.getExited();
         UUID exitedUUID = exited.getUniqueId();
         
@@ -68,7 +70,6 @@ public class BoatFix implements Listener {
         
         if (passengersExitQuery.remove(exitedUUID)) return;
         if (!(exited instanceof Player)) return;
-        if (!(e.getVehicle() instanceof Boat)) return;
         
         Boat oldBoat = (Boat) e.getVehicle();
         Player player = (Player) e.getExited();
