@@ -27,8 +27,10 @@ public abstract class Configuration {
     public Configuration(JavaPlugin plugin, String name, boolean useResource) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), name);
-        if (useResource) loadConfig(name);
-        else loadConfig();
+        if (useResource) {
+            loadConfig(name);
+            applyDefaults(name);
+        } else loadConfig();
     }
     
     /**
@@ -55,6 +57,7 @@ public abstract class Configuration {
         this.plugin = plugin;
         this.file = file;
         loadConfig(resource);
+        applyDefaults(resource);
     }
     
     public void loadConfig() {
@@ -62,6 +65,7 @@ public abstract class Configuration {
         createDirIfNotExist(dir);
         if (!file.isFile()) throw new IllegalStateException("File " + file.getName() + " does not exist!");
         config = YamlConfiguration.loadConfiguration(file);
+        config.options().copyDefaults(true);
     }
     
     public void loadConfig(String resource) {
@@ -76,6 +80,7 @@ public abstract class Configuration {
             }
         }
         config = YamlConfiguration.loadConfiguration(file);
+        config.options().copyDefaults(true);
     }
     
     public void applyDefaults(String resource) {

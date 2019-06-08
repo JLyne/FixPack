@@ -15,7 +15,6 @@ public class Config extends Configuration {
     
     public Config(FixPack plugin) {
         super(plugin, "config.yml", true);
-        applyDefaults("config.yml");
         saveConfig();
         
         boatFixGhostBoat = config.getBoolean("boat.fix-ghost-boat");
