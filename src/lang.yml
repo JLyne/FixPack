@@ -1,0 +1,5 @@
+command._default.no-permission: "§cNot enough permission for that command!"
+command.fixpack.help: |-
+  §8[§3FixPack§8] §e/fixpack ...
+      §ereload §7- reload configuration
+command.fixpack.reload.success: "§8[§3FixPack§8] §aConfiguration reloaded!"

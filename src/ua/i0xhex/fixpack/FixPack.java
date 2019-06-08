@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import ua.i0xhex.fixpack.command.CmdFixPack;
 import ua.i0xhex.fixpack.config.Config;
 import ua.i0xhex.fixpack.config.Lang;
 import ua.i0xhex.fixpack.fix.BoatFixManager;
@@ -26,6 +27,7 @@ public class FixPack extends JavaPlugin implements Manager {
         lang = new Lang(this);
         config = new Config(this);
         version = getServer().getClass().getPackage().getName().split("\\.")[3];
+        loadCommands();
         loadFixManagers();
     }
     
@@ -63,6 +65,10 @@ public class FixPack extends JavaPlugin implements Manager {
     }
     
     // internal
+    
+    private void loadCommands() {
+        new CmdFixPack(this);
+    }
     
     private void loadFixManagers() {
         fixManagers = new ArrayList<>();
