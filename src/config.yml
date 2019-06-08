@@ -1,3 +1,4 @@
+config-version: "1.0"
 boat:
   fix-ghost-boat: true
   safe-exit-location: true
