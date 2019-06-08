@@ -1,8 +1,8 @@
 config-version: "1.0"
 boat:
   fix-ghost-boat: true
-  safe-exit-location: true
-  prevent-suffocation-on-exit: true
+  safe-exit-location: false
+  prevent-suffocation-on-exit: false
   suffocation-immune-seconds: 3
 villager:
-  lock-random-trades: true
+  lock-random-trades: false
