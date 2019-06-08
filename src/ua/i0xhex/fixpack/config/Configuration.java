@@ -16,6 +16,8 @@ public abstract class Configuration {
     protected File file;
     protected YamlConfiguration config;
     
+    private char pathSeparator = '.';
+    
     /**
      * Load config from file name. File chosen from default plugin directory.
      * Resource chosen from root directory in jar.
@@ -27,6 +29,27 @@ public abstract class Configuration {
     public Configuration(JavaPlugin plugin, String name, boolean useResource) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), name);
+        
+        if (useResource) {
+            loadConfig(name);
+            applyDefaults(name);
+        } else loadConfig();
+    }
+    
+    /**
+     * Load config from file name. File chosen from default plugin directory.
+     * Resource chosen from root directory in jar.
+     *
+     * @param plugin plugin
+     * @param name file name (ex "config.yml")
+     * @param useResource copy resource or not if file not exists
+     * @param pathSeparator path separator
+     */
+    public Configuration(JavaPlugin plugin, String name, boolean useResource, char pathSeparator) {
+        this.plugin = plugin;
+        this.file = new File(plugin.getDataFolder(), name);
+        this.pathSeparator = pathSeparator;
+        
         if (useResource) {
             loadConfig(name);
             applyDefaults(name);
@@ -61,33 +84,57 @@ public abstract class Configuration {
     }
     
     public void loadConfig() {
-        File dir = file.getParentFile();
-        createDirIfNotExist(dir);
-        if (!file.isFile()) throw new IllegalStateException("File " + file.getName() + " does not exist!");
-        config = YamlConfiguration.loadConfiguration(file);
-        config.options().copyDefaults(true);
+        try {
+            File dir = file.getParentFile();
+            createDirIfNotExist(dir);
+            
+            if (!file.isFile())
+                throw new IllegalStateException("File " + file.getName() + " does not exist!");
+    
+            config = new YamlConfiguration();
+            config.options().copyDefaults(true);
+            config.options().pathSeparator(pathSeparator);
+            
+            config.load(file);
+            config.save(file);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to load config: " + file.getName(), ex);
+        }
     }
     
     public void loadConfig(String resource) {
-        File dir = file.getParentFile();
-        createDirIfNotExist(dir);
-        if (!file.isFile()) {
-            try {
+        try {
+            File dir = file.getParentFile();
+            createDirIfNotExist(dir);
+    
+            config = new YamlConfiguration();
+            config.options().copyDefaults(true);
+            config.options().pathSeparator(pathSeparator);
+            
+            if (!file.isFile()) {
                 InputStream stream = plugin.getClass().getResourceAsStream("/" + resource);
-                Files.copy(stream, file.toPath());
-            } catch (IOException ex) {
-                throw new IllegalStateException("Could not load config " + file.getName(), ex);
-            }
+                config.load(new InputStreamReader(stream));
+            } else config.load(file);
+    
+            config.save(file);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to load config with resource: " + resource, ex);
         }
-        config = YamlConfiguration.loadConfiguration(file);
-        config.options().copyDefaults(true);
     }
     
     public void applyDefaults(String resource) {
-        InputStream stream = plugin.getClass().getResourceAsStream("/" + resource);
-        InputStreamReader reader = new InputStreamReader(stream);
-        YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(reader);
-        config.setDefaults(defaultConfig);
+        try {
+            InputStream stream = plugin.getClass().getResourceAsStream("/" + resource);
+            InputStreamReader reader = new InputStreamReader(stream);
+            
+            YamlConfiguration defaults = new YamlConfiguration();
+            defaults.options().pathSeparator(pathSeparator);
+            defaults.load(reader);
+            
+            config.setDefaults(defaults);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to apply defaults: " + resource, ex);
+        }
     }
     
     public void saveConfig() {
@@ -95,7 +142,7 @@ public abstract class Configuration {
             File dir = file.getParentFile();
             createDirIfNotExist(dir);
             config.save(file);
-        } catch (Exception ex) {ex.printStackTrace();}
+        } catch (Exception ex) { ex.printStackTrace(); }
     }
     
     // internal
