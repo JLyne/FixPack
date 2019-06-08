@@ -1,6 +1,5 @@
 package ua.i0xhex.fixpack.command;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import ua.i0xhex.fixpack.FixPack;
-import ua.i0xhex.fixpack.misc.Perm;
+import ua.i0xhex.fixpack.Permission;
 
 public class CmdFixPack extends Cmd {
     public CmdFixPack(FixPack plugin) {
@@ -43,7 +42,7 @@ public class CmdFixPack extends Cmd {
     }
     
     private void argReload(CommandSender sender, String[] args) {
-        if (!sender.hasPermission(Perm.COMMAND_FIXPACK_RELOAD)) {
+        if (!sender.hasPermission(Permission.COMMAND_FIXPACK_RELOAD)) {
             sender.sendMessage(plugin.lang().msg("command._default.no-permission"));
             return;
         }

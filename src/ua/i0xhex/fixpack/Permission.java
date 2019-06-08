@@ -1,5 +1,5 @@
-package ua.i0xhex.fixpack.misc;
+package ua.i0xhex.fixpack;
 
-public class Perm {
+public class Permission {
     public static final String COMMAND_FIXPACK_RELOAD = "fixpack.reload";
 }
