@@ -11,6 +11,8 @@ public class Config extends Configuration {
     private boolean boatPreventSuffocationOnExit;
     private Duration boatSuffocationImmuneDuration;
     
+    private boolean villagerLockRandomTrades;
+    
     public Config(FixPack plugin) {
         super(plugin, "config.yml", true);
         applyDefaults("config.yml");
@@ -20,6 +22,8 @@ public class Config extends Configuration {
         boatSafeExitLocation = config.getBoolean("boat.safe-exit-location");
         boatPreventSuffocationOnExit = config.getBoolean("boat.prevent-suffocation-on-exit");
         boatSuffocationImmuneDuration = Duration.ofSeconds(config.getLong("boat.suffocation-immune-seconds"));
+        
+        villagerLockRandomTrades = config.getBoolean("villager.lock-random-trades");
     }
     
     // getters
@@ -38,5 +42,9 @@ public class Config extends Configuration {
     
     public Duration boatSuffocationImmuneDuration() {
         return boatSuffocationImmuneDuration;
+    }
+    
+    public boolean villagerLockRandomTrades() {
+        return villagerLockRandomTrades;
     }
 }

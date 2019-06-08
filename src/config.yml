@@ -3,3 +3,5 @@ boat:
   safe-exit-location: true
   prevent-suffocation-on-exit: true
   suffocation-immune-seconds: 3
+villager:
+  lock-random-trades: true
