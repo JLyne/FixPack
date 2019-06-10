@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 
 import ua.i0xhex.fixpack.FixPack;
@@ -27,7 +28,8 @@ public class BoatFixGhostBoat implements Listener, Manager {
     
     private boolean enabled;
     
-    private Set<UUID> passengersExitQuery = new HashSet<>();
+    private Set<UUID> passengerMarkSet = new HashSet<>();
+    private Set<UUID> quitMarkSet = new HashSet<>();
     
     public BoatFixGhostBoat(FixPack plugin, BoatFixManager manager) {
         this.plugin = plugin;
@@ -50,6 +52,13 @@ public class BoatFixGhostBoat implements Listener, Manager {
         loadConfig();
     }
     
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
+        if (player.getVehicle() != null)
+            quitMarkSet.add(player.getUniqueId());
+    }
+    
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onVehicleDismount(VehicleExitEvent e) {
         if (enabled) {
@@ -58,7 +67,8 @@ public class BoatFixGhostBoat implements Listener, Manager {
             LivingEntity exited = e.getExited();
             UUID exitedUUID = exited.getUniqueId();
         
-            if (passengersExitQuery.remove(exitedUUID)) return;
+            if (quitMarkSet.remove(exitedUUID)) return;
+            if (passengerMarkSet.remove(exitedUUID)) return;
             if (!(exited instanceof Player)) return;
             
             Boat oldBoat = (Boat) e.getVehicle();
@@ -66,7 +76,7 @@ public class BoatFixGhostBoat implements Listener, Manager {
         
             Bukkit.getScheduler().runTask(plugin, () -> {
                 List<Entity> passengers = oldBoat.getPassengers();
-                passengers.forEach(p -> passengersExitQuery.add(p.getUniqueId()));
+                passengers.forEach(p -> passengerMarkSet.add(p.getUniqueId()));
                 oldBoat.eject();
                 oldBoat.remove();
         
