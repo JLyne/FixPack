@@ -14,7 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 
 import ua.i0xhex.fixpack.FixPack;
@@ -79,14 +81,22 @@ public class BoatFixGhostBoat implements Listener, Manager {
                 passengers.forEach(p -> passengerMarkSet.add(p.getUniqueId()));
                 oldBoat.eject();
                 oldBoat.remove();
-        
+
                 Boat newBoat = (Boat) world.spawnEntity(oldBoat.getLocation(), oldBoat.getType());
                 newBoat.setWoodType(oldBoat.getWoodType());
                 passengers.forEach(newBoat::addPassenger);
             });
         }
     }
-    
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onVehicleDismount(VehicleDestroyEvent e) {
+        if (!(e.getVehicle() instanceof Boat)) return;
+
+        List<Entity> passengers = e.getVehicle().getPassengers();
+        passengers.forEach(p -> passengerMarkSet.add(p.getUniqueId()));
+    }
+
     private void loadConfig() {
         Config config = plugin.config();
         enabled = config.boatFixGhostBoat();
